@@ -5,18 +5,7 @@
  https://opensource.org/licenses/MIT
 -->
 
-<style>
-table {
-    border-collapse: collapse;
-}
-table, th, td {
-   border: none;
-   padding:0px;
-}
-blockquote {
-    border-left: none;
-}
-</style>
+
 
 # Mime It!
 
@@ -126,7 +115,7 @@ This 👆 will _log_ the following:
 ```
 |||
 |--- |----|
-|<img src="./test/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
+|<img src="./tests/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
 
 
  
