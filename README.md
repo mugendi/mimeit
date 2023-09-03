@@ -126,7 +126,7 @@ This 👆 will _log_ the following:
 ```
 |||
 |--- |----|
-|<img src="test/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
+|<img src="./test/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
 
 
  
