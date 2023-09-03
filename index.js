@@ -6,13 +6,9 @@
  */
 
 const mime = require('mime-type/with-db');
-const typer = require('media-typer');
 const fileType = require('./lib/file-type');
-const path = require('path');
-const fs = require('fs');
-
-// const iconDir = path.resolve('./lib/icons');
 const icons = require('./lib/icons.json');
+const typeMatches = require('./lib/type-matches');
 
 class MimeIt {
     constructor() {
@@ -43,7 +39,7 @@ class MimeIt {
             let mimeType = mime.lookup(file) || mime.glob(file)[0] || null;
             this.meta = { file };
 
-            if (!mimeType || 1 == 1) {
+            if (!mimeType) {
                 let type = await fileType(file);
                 if (!type || !type.mime) return null;
 
@@ -60,11 +56,19 @@ class MimeIt {
                 mimeType = type.mime;
             }
 
-            const { type, subtype: subType } = typer.parse(mimeType);
+            let [type, subType] = mimeType.split('/');
 
             const ext = /\.[a-z0-9]+$/i.test(file)
                 ? file.split('.').pop()
                 : mime.extension(mimeType);
+
+            let subTypes = typeMatches(ext)
+                .filter((s) => s !== type && s !== subType)
+                .reverse();
+
+            subType = [subType, ...subTypes];
+
+            // console.log(typeMatches(ext));
 
             const {
                 extensions: all,
@@ -95,7 +99,7 @@ class MimeIt {
 
             mimeObj.__proto__ = {
                 icon: get_icon(mimeObj),
-                meta: this.meta
+                meta: this.meta,
             };
 
             return mimeObj;
@@ -106,11 +110,21 @@ class MimeIt {
 }
 
 function get_icon(mimeObj) {
-    const icon =
-        icons[mimeObj.extensions.current] ||
-        icons[mimeObj.subType] ||
-        icons[mimeObj.type] ||
-        icons['default_file'];
+    // try to get icon given extension
+    let icon = icons[mimeObj.extensions.current];
+
+    // if failed, try use the subtype array
+    if (!icon) {
+        for (let s of mimeObj.subType) {
+            icon = icons[s];
+            if (icon) break;
+        }
+    }
+
+    // if failed, try the broader type or return default file
+    if (!icon) {
+        icon = icons[mimeObj.type] || icons['default_file'];
+    }
 
     return icon;
 }

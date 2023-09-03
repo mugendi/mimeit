@@ -5,8 +5,6 @@
  https://opensource.org/licenses/MIT
 -->
 
-
-
 # Mime It!
 
 This is a module that helps you access mime information about any _file-name_, _file_ or even _url_ as well as providing you with the best svg icon for the mime type.
@@ -18,7 +16,6 @@ This module combines the power of the following great modules:
 -   [**mime-type**](https://www.npmjs.com/package/mime-type) ~ the custom more powerful mime-type utility can work with [mime-db](https://www.npmjs.com/package/mime-db) which is itself forked from [mime-types](https://www.npmjs.com/package/mime-types).
 -   [**axios**](https://www.npmjs.com/package/axios) ~ promise based HTTP client that allows us to access remote files via URL.
 -   [**file-type**](https://www.npmjs.com/package/file-type) ~ that allows us to detect file types from URL & File buffers.
--   [**media-typer**](https://www.npmjs.com/package/media-typer) ~ helps to parse the mime string into it's component parts, like type, subtype.
 
 ## Fast even for remote files
 
@@ -45,23 +42,29 @@ const file =
     // get mime data
     let mime = await mimeit.get(file);
 
-    console.log(mime);
+    console.log('Unsplash URL\n', mime);
     // you can also inspect the meta object
     // which shows what has been done behind the scenes
     console.log(mime.meta);
     // get an svg icon for this meta type
-    console.log(mime.icon);
+    console.log('Unsplash Icon\n', mime.icon);
+
+    // You can also check file paths & names
+    mime = await mimeit.get('/path/to/my-doc.ppt');
+    console.log('PPT\n', mime);
+    console.log('PPT Icon\n', mime.icon);
 })();
 ```
 
 This 👆 will _log_ the following:
 
-`console.log(mime);`
+`console.log("Unsplash URL\n", mime);`
 
 ```json
+unsplash URL
 {
     "type": "image",
-    "subType": "jpeg",
+    "subType": ["jpeg"],
     "charset": null,
     "compressible": null,
     "mime": {
@@ -108,17 +111,48 @@ This 👆 will _log_ the following:
 }
 ```
 
-`console.log(mime.icon);`
+`console.log("Unsplash Icon\n", mime.icon);`
 
 ```text
+Unsplash Icon
 "<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.976 9.072h5.368l-5.368-5.367v5.367M6.144 2.241h7.808l5.856 5.855v11.711a1.952 1.952 0 0 1-1.952 1.952H6.145a1.951 1.951 0 0 1-1.952-1.952V4.192c0-1.083.868-1.951 1.952-1.951m0 17.567h11.71V12l-3.903 3.904L12 13.952l-5.856 5.856M8.096 9.073a1.952 1.952 0 0 0-1.952 1.952 1.952 1.952 0 0 0 1.952 1.951 1.952 1.952 0 0 0 1.952-1.951 1.952 1.952 0 0 0-1.952-1.952z" fill="#26a69a"/></svg>"
 ```
-|||
-|--- |----|
-|<img src="./tests/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
 
+|                                                |                                           |
+| ---------------------------------------------- | ----------------------------------------- |
+| <img src="./tests/image-icon.svg" width="64"/> | The Icon generated for the unsplash file. |
 
- 
+`console.log("PPT\n", mime);`
+
+```json
+PPT
+{
+    "type": "application",
+    "subType": ["vnd.ms-powerpoint", "powerpoint", "visio", "microsoft"],
+    "charset": null,
+    "compressible": null,
+    "mime": {
+        "type": "application/vnd.ms-powerpoint",
+        "content": "application/vnd.ms-powerpoint"
+    },
+    "extensions": {
+        "current": "ppt",
+        "all": ["ppt", "pps", "pot"]
+    }
+}
+```
+
+`console.log("PPT Icon\n", mime.icon);`
+
+```text
+PPT Icon
+ <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m7 1.5V9h5.5L13 3.5M8 11v2h1v6H8v1h4v-1h-1v-2h2a3 3 0 0 0 3-3 3 3 0 0 0-3-3H8m5 2a1 1 0 0 1 1 1 1 1 0 0 1-1 1h-2v-2h2z" fill="#d14524"/></svg>
+```
+
+|                                              |                                      |
+| -------------------------------------------- | ------------------------------------ |
+| <img src="./tests/ppt-icon.svg" width="64"/> | The Icon generated for the PPT file. |
+
 
 ## Exposed Mime-Type API
 
