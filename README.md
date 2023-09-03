@@ -144,7 +144,7 @@ mimeit.mime.extensions['text/css'];
 mimeit.mime.types['text/css'];
 ```
 
-### All Mime-Type Methods
+### 2. All Mime-Type Methods
 
 Access the methods via:
 
