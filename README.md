@@ -5,6 +5,19 @@
  https://opensource.org/licenses/MIT
 -->
 
+<style>
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+   border: none;
+   padding:0px;
+}
+blockquote {
+    border-left: none;
+}
+</style>
+
 # Mime It!
 
 This is a module that helps you access mime information about any _file-name_, _file_ or even _url_ as well as providing you with the best svg icon for the mime type.
@@ -109,8 +122,14 @@ This 👆 will _log_ the following:
 `console.log(mime.icon);`
 
 ```text
-"<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12.976 9.072h5.368l-5.368-5.367v5.367M6.144 2.241h7.808l5.856 5.855v11.711a1.952 1.952 0 0 1-1.952 1.952H6.145a1.951 1.951 0 0 1-1.952-1.952V4.192c0-1.083.868-1.951 1.952-1.951m0 17.567h11.71V12l-3.903 3.904L12 13.952l-5.856 5.856M8.096 9.073a1.952 1.952 0 0 0-1.952 1.952 1.952 1.952 0 0 0 1.952 1.951 1.952 1.952 0 0 0 1.952-1.951 1.952 1.952 0 0 0-1.952-1.952z\" fill=\"#26a69a\"/></svg>"
+"<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.976 9.072h5.368l-5.368-5.367v5.367M6.144 2.241h7.808l5.856 5.855v11.711a1.952 1.952 0 0 1-1.952 1.952H6.145a1.951 1.951 0 0 1-1.952-1.952V4.192c0-1.083.868-1.951 1.952-1.951m0 17.567h11.71V12l-3.903 3.904L12 13.952l-5.856 5.856M8.096 9.073a1.952 1.952 0 0 0-1.952 1.952 1.952 1.952 0 0 0 1.952 1.951 1.952 1.952 0 0 0 1.952-1.951 1.952 1.952 0 0 0-1.952-1.952z" fill="#26a69a"/></svg>"
 ```
+|||
+|--- |----|
+|<img src="test/icon.svg" width="64"/>|The Icon generated for the unsplash file.|
+
+
+ 
 
 ## Exposed Mime-Type API
 
