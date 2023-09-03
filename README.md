@@ -60,7 +60,7 @@ This 👆 will _log_ the following:
 
 `console.log("Unsplash URL\n", mime);`
 
-```json
+```text
 unsplash URL
 {
     "type": "image",
@@ -80,7 +80,7 @@ unsplash URL
 
 `console.log(mime.meta);`
 
-```json
+```text
 {
     "file": "https://plus.unsplash.com/premium_photo-1670390321006-08f58f418429",
     "took": "1.104 s",
@@ -124,7 +124,7 @@ Unsplash Icon
 
 `console.log("PPT\n", mime);`
 
-```json
+```text
 PPT
 {
     "type": "application",
