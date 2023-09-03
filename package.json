@@ -1,0 +1,42 @@
+{
+  "name": "mimeit",
+  "version": "1.0.0",
+  "description": "This is a module that helps you access mime information about any file-name, file or even url as well as providing you with the best svg icon for the mime type.",
+  "main": "index.js",
+  "keywords": [
+    "mime",
+    "mime-type",
+    "charset",
+    "media",
+    "type",
+    "file",
+    "url",
+    "extension",
+    "icon"
+  ],
+  "author": "Anthony Mugendi <ngurumugz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "file-type": "16",
+    "is-url": "^1.2.4",
+    "media-typer": "^1.1.0",
+    "mime-db": "^1.52.0",
+    "mime-type": "^4.0.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mugendi/mimeit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mugendi/mimeit/issues"
+  },
+  "homepage": "https://github.com/mugendi/mimeit#readme"
+}
