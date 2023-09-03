@@ -5,7 +5,15 @@
  https://opensource.org/licenses/MIT
 -->
 
+
+
+
 # Mime It!
+[![github-lang-cout](https://img.shields.io/github/languages/top/mugendi/mimeit?style=social&logo=github)](https://github.com/mugendi/mimeit)
+[![github-package.json-version](https://img.shields.io/github/package-json/v/mugendi/mimeit?style=social&logo=github)](https://github.com/mugendi/mimeit)
+[![github-stars](https://img.shields.io/github/stars/mugendi/mimeit?style=social&logo=github)](https://github.com/mugendi/mimeit)
+[![github-forks](https://img.shields.io/github/forks/mugendi/mimeit?label=Fork&style=social&logo=github)](https://github.com/mugendi/mimeit)
+
 
 This is a module that helps you access mime information about any _file-name_, _file_ or even _url_ as well as providing you with the best svg icon for the mime type.
 
