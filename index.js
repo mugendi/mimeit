@@ -6,8 +6,8 @@
  */
 
 const mime = require('mime-type/with-db');
-const fileType = require('./lib/file-type');
-const icons = require('./lib/icons.json');
+const fileType = require('./lib/get-type');
+const icons = require('./lib/icons');
 const typeMatches = require('./lib/type-matches');
 
 class MimeIt {
