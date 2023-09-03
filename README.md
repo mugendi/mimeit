@@ -157,3 +157,5 @@ Access the methods via:
 -   `mimeit.contentType`
 -   `mimeit.extension`
 -   `mimeit.charset`
+
+Enjoy ♥
