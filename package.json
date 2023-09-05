@@ -1,6 +1,6 @@
 {
   "name": "mimeit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a module that helps you access mime information about any file-name, file or even url as well as providing you with the best svg icon for the mime type.",
   "main": "index.js",
   "keywords": [
