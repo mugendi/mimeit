@@ -20,7 +20,10 @@ let file = 'https://plus.unsplash.com/premium_photo-1670390321006-08f58f418429';
 
 
     mime = await mimeit.get('/path/to/my-doc.ppt')
-
     console.log("PPT\n", mime);
     console.log("PPT Icon\n", mime.icon);
+
+    mime = await mimeit.get('/path/to/my-doc.sass')
+    console.log('SASS\n', mime);
+    console.log('SASS Icon\n', mime.icon);
 })();
