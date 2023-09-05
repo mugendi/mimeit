@@ -41,8 +41,12 @@ class MimeIt {
                 file,
             };
 
+            let ext;
+
             if (!mimeType) {
                 let type = await fileType(file);
+                // console.log({ type });
+                ext = type?.ext || null;
 
                 // if we still cant get type
                 if (!type || !type.mime) {
@@ -64,9 +68,13 @@ class MimeIt {
 
             let [type, subType] = mimeType.split('/');
 
-            const ext = /\.[a-z0-9]+$/i.test(file)
-                ? file.split('.').pop()
-                : mime.extension(mimeType);
+            if (!ext) {
+                ext = /\.[a-z0-9]+$/i.test(file)
+                    ? file.split('.').pop()
+                    : mime.extension(mimeType);
+            }
+
+            // console.log('>>>>>', ext);
 
             let {
                 extensions: all,
