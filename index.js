@@ -1,18 +1,14 @@
 /**
-* Copyright (c) 2023 Anthony Mugendi
-*
-* This software is released under the MIT License.
-* https://opensource.org/licenses/MIT
-*/
+ * Copyright (c) 2023 Anthony Mugendi
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 const mime = require('./lib/mime');
 const fileType = require('./lib/get-type');
 const icons = require('./lib/icons');
-const {
-    type_synonyms,
-    type_matches
-} = require('./lib/type-matches');
-
+const { type_synonyms, type_matches } = require('./lib/type-matches');
 
 class MimeIt {
     constructor() {
@@ -42,17 +38,21 @@ class MimeIt {
 
             let mimeType = mime.lookup(file) || mime.glob(file)[0] || null;
             this.meta = {
-                file
+                file,
             };
 
             if (!mimeType) {
                 let type = await fileType(file);
-                if (!type || !type.mime) return null;
+
+                // if we still cant get type
+                if (!type || !type.mime) {
+                    type = { mime: 'unknown/unknown' };
+                }
 
                 this.meta.took = type.took;
 
                 this.meta.source = {
-                    type: type.isUrl ? 'URL': type.isFile ? 'FILE': null,
+                    type: type.isUrl ? 'URL' : type.isFile ? 'FILE' : null,
                     size: type.size,
                     bytesRead: type.bytesRead || 0,
                 };
@@ -62,41 +62,39 @@ class MimeIt {
                 mimeType = type.mime;
             }
 
-            let [type,
-                subType] = mimeType.split('/');
+            let [type, subType] = mimeType.split('/');
 
             const ext = /\.[a-z0-9]+$/i.test(file)
-            ? file.split('.').pop(): mime.extension(mimeType);
-
-            // console.log(typeMatches(ext));
+                ? file.split('.').pop()
+                : mime.extension(mimeType);
 
             let {
                 extensions: all,
                 charset,
                 compressible,
             } = mime[mimeType] || {
-                extensions: [ext]
+                extensions: [ext],
             };
 
             // filter unique
-            all = Array.from(new Set(all))
+            all = Array.from(new Set(all));
 
-            let associatedWith = all.map(t=>type_matches(t)).filter(v=>v.length)
-            .concat([subType.split('.').slice(1)])
-            .concat(/^[a-z]+$/.test(subType) ? [[subType]]: [[]])
-            .reduce((a, b)=> {
-                for (let c of b) {
-                    if (a.indexOf(c) == -1) {
-                        a.push(c)
+            let associatedWith = all
+                .map((t) => type_matches(t))
+                .filter((v) => v.length)
+                .concat([subType.split('.').slice(1)])
+                .concat(/^[a-z]+$/.test(subType) ? [[subType]] : [[]])
+                .reduce((a, b) => {
+                    for (let c of b) {
+                        if (a.indexOf(c) == -1) {
+                            a.push(c);
+                        }
                     }
-                }
 
-                return a
-            },
-                [])
+                    return a;
+                }, []);
 
-            associatedWith = type_synonyms(associatedWith,ext);
-
+            associatedWith = type_synonyms(associatedWith, ext);
 
             const extensions = {
                 current: ext,
@@ -115,7 +113,10 @@ class MimeIt {
                 mime: {
                     type: mimeType,
                     content: contentType,
-                    charset: charset || (contentType.match(/charset=(.+)/) || [])[1] || null,
+                    charset:
+                        charset ||
+                        (contentType.match(/charset=(.+)/) || [])[1] ||
+                        null,
                 },
 
                 //ext,
@@ -123,7 +124,7 @@ class MimeIt {
             };
 
             mimeObj.__proto__ = {
-                icon: get_icon(mimeObj),
+                icon: this.get_icon(mimeObj),
                 meta: this.meta,
             };
 
@@ -132,31 +133,35 @@ class MimeIt {
             throw error;
         }
     }
-}
 
-function get_icon(mimeObj) {
-    // try to get icon given extension
-    let icon = icons[mimeObj.extensions.current];
+    get_icon(val) {
+        let mimeObj =
+            typeof val == 'object' ? val : { extensions: { current: val } };
 
-    //
-    if (!icon) {
-        icon = icons[mimeObj.subType] ;
-    }
+        // try to get icon given extension
+        let icon = icons[mimeObj.extensions.current];
 
-    // if failed, try use the subtype array
-    if (!icon) {
-        for (let s of mimeObj.associatedWith) {
-            icon = icons[s];
-            if (icon) break;
+        //
+        if (!icon) {
+            icon = icons[mimeObj.subType];
         }
-    }
 
-    // if failed, try the broader type or return default file
-    if (!icon) {
-        icon = icons[mimeObj.type] || icons['default_file'];
-    }
+        // if failed, try use the subtype array
+        if (!icon) {
+            for (let s of mimeObj.associatedWith) {
+                icon = icons[s];
+                if (icon) break;
+            }
+        }
 
-    return icon;
+        // if failed, try the broader type or return default file
+        if (!icon) {
+            icon = icons[mimeObj.type] || icons['default_file'];
+        }
+
+        // console.log(mimeObj, icon);
+        return icon;
+    }
 }
 
 module.exports = MimeIt;
